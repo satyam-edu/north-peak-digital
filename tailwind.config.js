@@ -7,6 +7,10 @@ export default {
         ink: '#0b1120',
         accent: '#2563eb',
       },
+      fontFamily: {
+        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+        display: ['"Outfit"', 'sans-serif'],
+      },
     },
   },
   plugins: [],

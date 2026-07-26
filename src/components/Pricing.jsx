@@ -6,6 +6,21 @@ import { pricing } from '../data/agencyData'
 const focusRing =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900'
 
+const headerVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+}
+
+const gridVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+}
+
 function scrollToSection(id) {
   const target = document.getElementById(id)
   if (!target) return
@@ -25,17 +40,23 @@ function Pricing() {
   const [isAnnual, setIsAnnual] = useState(false)
 
   return (
-    <section id="pricing" className="bg-slate-900 px-6 py-24">
+    <section id="pricing" className="bg-glow-radial bg-slate-900 px-6 py-24">
       <div className="mx-auto max-w-6xl">
-        <div className="mx-auto max-w-2xl text-center">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          variants={headerVariants}
+          className="mx-auto max-w-2xl text-center"
+        >
           <span className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-800/60 px-4 py-1.5 text-sm font-medium text-slate-300">
             {pricing.intro.badge}
           </span>
-          <h2 className="mt-6 bg-gradient-to-r from-white via-blue-100 to-blue-400 bg-clip-text text-3xl font-semibold tracking-tight text-transparent md:text-4xl">
+          <h2 className="mt-6 bg-gradient-to-r from-white via-blue-100 to-blue-400 bg-clip-text font-display text-3xl font-semibold tracking-tight text-transparent md:text-4xl">
             {pricing.intro.headline}
           </h2>
           <p className="mt-4 text-slate-300">{pricing.intro.subtext}</p>
-        </div>
+        </motion.div>
 
         <div className="mt-10 flex items-center justify-center gap-4">
           <span
@@ -71,10 +92,17 @@ function Pricing() {
           </span>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          variants={gridVariants}
+          className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3"
+        >
           {pricing.tiers.map((tier) => (
-            <article
+            <motion.article
               key={tier.id}
+              variants={cardVariants}
               className={`relative flex h-full flex-col rounded-2xl border p-8 ${
                 tier.isPopular
                   ? 'border-blue-500 bg-slate-800/90 text-white shadow-xl shadow-blue-500/10'
@@ -87,7 +115,7 @@ function Pricing() {
                 </span>
               )}
 
-              <h3 className="text-lg font-semibold text-white">{tier.name}</h3>
+              <h3 className="font-display text-lg font-semibold text-white">{tier.name}</h3>
               <p className="mt-1 text-xs font-medium text-blue-400">{tier.target}</p>
               <p className="mt-3 text-sm text-slate-300">{tier.tagline}</p>
 
@@ -147,12 +175,14 @@ function Pricing() {
                 ))}
               </ul>
 
-              <a
+              <motion.a
                 href="#contact"
                 onClick={(event) => {
                   event.preventDefault()
                   scrollToSection('contact')
                 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
                 className={`mt-8 rounded-full px-5 py-3 text-center text-sm font-medium transition-colors ${
                   tier.isPopular
                     ? 'bg-blue-500 text-white hover:bg-blue-400'
@@ -160,10 +190,10 @@ function Pricing() {
                 } ${focusRing}`}
               >
                 {tier.cta}
-              </a>
-            </article>
+              </motion.a>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

@@ -24,7 +24,7 @@ function Footer() {
 
           {footerData.columns.map((column) => (
             <div key={column.heading}>
-              <h3 className="text-sm font-semibold text-white">{column.heading}</h3>
+              <h3 className="font-display text-sm font-semibold text-white">{column.heading}</h3>
               <ul className="mt-3 space-y-2">
                 {column.links.map((link) => (
                   <li key={link.label}>

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion } from 'motion/react'
 import { Menu, X, Mountain } from 'lucide-react'
 import { company, navLinks } from '../data/agencyData'
 
@@ -59,13 +60,15 @@ function Navbar() {
           ))}
         </ul>
 
-        <a
+        <motion.a
           href="#contact"
           onClick={(event) => handleLinkClick(event, 'contact')}
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.98 }}
           className={`hidden rounded-full bg-white px-5 py-2 text-sm font-medium text-slate-900 transition-colors hover:bg-slate-100 md:inline-block ${focusRing}`}
         >
           Get Started
-        </a>
+        </motion.a>
 
         <button
           type="button"

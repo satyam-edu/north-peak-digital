@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Send, CheckCircle2 } from 'lucide-react'
+import { motion, AnimatePresence } from 'motion/react'
+import { Send, Loader2, CheckCircle2 } from 'lucide-react'
 import { contactInfo } from '../data/agencyData'
 
 const focusRing =
@@ -7,6 +8,11 @@ const focusRing =
 
 const inputClasses =
   'mt-2 w-full rounded-lg border border-slate-700 bg-slate-800/80 px-4 py-2.5 text-sm text-white placeholder-slate-400 outline-none transition-colors focus:border-blue-500 focus:ring-1 focus:ring-blue-500'
+
+const fadeUpVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+}
 
 const initialForm = { name: '', email: '', budget: '', message: '' }
 
@@ -42,6 +48,7 @@ function Contact() {
   const [values, setValues] = useState(initialForm)
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
+  const [status, setStatus] = useState('idle')
 
   const handleChange = (field) => (event) => {
     setValues((prev) => ({ ...prev, [field]: event.target.value }))
@@ -52,21 +59,34 @@ function Contact() {
     const validationErrors = validate(values)
     setErrors(validationErrors)
 
-    if (Object.keys(validationErrors).length === 0) {
+    if (Object.keys(validationErrors).length > 0) return
+
+    setStatus('submitting')
+
+    setTimeout(() => {
+      setStatus('success')
       setSubmitted(true)
       setValues(initialForm)
-    }
+
+      setTimeout(() => setStatus('idle'), 1800)
+    }, 900)
   }
 
   return (
     <section id="contact" className="bg-slate-950 px-6 py-24">
       <div className="mx-auto max-w-3xl">
-        <div className="text-center">
-          <h2 className="bg-gradient-to-r from-white via-blue-100 to-blue-400 bg-clip-text text-3xl font-semibold tracking-tight text-transparent md:text-4xl">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          variants={fadeUpVariants}
+          className="text-center"
+        >
+          <h2 className="bg-gradient-to-r from-white via-blue-100 to-blue-400 bg-clip-text font-display text-3xl font-semibold tracking-tight text-transparent md:text-4xl">
             {contactInfo.heading}
           </h2>
           <p className="mt-4 text-slate-300">{contactInfo.subheading}</p>
-        </div>
+        </motion.div>
 
         {submitted && (
           <div
@@ -78,7 +98,15 @@ function Contact() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} noValidate className="mt-10 space-y-6">
+        <motion.form
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          variants={fadeUpVariants}
+          onSubmit={handleSubmit}
+          noValidate
+          className="mt-10 space-y-6"
+        >
           <div className="grid gap-6 sm:grid-cols-2">
             <div>
               <label htmlFor="name" className="text-sm font-medium text-slate-200">
@@ -167,14 +195,56 @@ function Contact() {
             )}
           </div>
 
-          <button
+          <motion.button
             type="submit"
-            className={`inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-slate-900 transition-colors hover:bg-slate-100 ${focusRing}`}
+            disabled={status !== 'idle'}
+            whileHover={status === 'idle' ? { scale: 1.03 } : undefined}
+            whileTap={status === 'idle' ? { scale: 0.98 } : undefined}
+            className={`inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-slate-900 transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-80 ${focusRing}`}
           >
-            Send message
-            <Send size={16} aria-hidden="true" />
-          </button>
-        </form>
+            <AnimatePresence mode="wait" initial={false}>
+              {status === 'idle' && (
+                <motion.span
+                  key="idle"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                  className="inline-flex items-center gap-2"
+                >
+                  Send message
+                  <Send size={16} aria-hidden="true" />
+                </motion.span>
+              )}
+              {status === 'submitting' && (
+                <motion.span
+                  key="submitting"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                  className="inline-flex items-center gap-2"
+                >
+                  Sending...
+                  <Loader2 size={16} className="animate-spin" aria-hidden="true" />
+                </motion.span>
+              )}
+              {status === 'success' && (
+                <motion.span
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="inline-flex items-center gap-2"
+                >
+                  Sent
+                  <CheckCircle2 size={16} aria-hidden="true" />
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </motion.button>
+        </motion.form>
       </div>
     </section>
   )
