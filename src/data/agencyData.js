@@ -151,48 +151,73 @@ export const results = [
   },
 ]
 
-export const pricingTiers = [
-  {
-    name: 'Launch',
-    price: '$2,400',
-    period: 'one-time',
-    description: 'A focused one-page site for teams validating a new offer.',
-    features: [
-      'Single-page responsive build',
-      'Copy and structure guidance',
-      'Basic on-page SEO',
-      '2 rounds of revisions',
-    ],
-    highlighted: false,
+export const pricing = {
+  intro: {
+    badge: 'Flexible Plans',
+    headline: 'Transparent Pricing Built for Scale',
+    subtext:
+      'Every plan includes a site you fully own — pick the level of ongoing engineering your growth stage needs.',
   },
-  {
-    name: 'Growth',
-    price: '$5,800',
-    period: 'one-time',
-    description: 'Our most common engagement: a full marketing site built to convert.',
-    features: [
-      'Up to 6 custom page templates',
-      'CMS setup for your team',
-      'Performance and accessibility pass',
-      'Analytics and event tracking',
-      '4 rounds of revisions',
-    ],
-    highlighted: true,
-  },
-  {
-    name: 'Partner',
-    price: 'Custom',
-    period: 'monthly retainer',
-    description: 'Ongoing design, development, and CRO for teams shipping often.',
-    features: [
-      'Everything in Growth',
-      'Dedicated engineer and designer',
-      'Monthly experiment roadmap',
-      'Priority turnaround on requests',
-    ],
-    highlighted: false,
-  },
-]
+  tiers: [
+    {
+      id: 'launch-sprint',
+      name: 'Launch Sprint',
+      target: 'Startups / MVPs',
+      tagline: 'Everything you need to launch a credible site fast.',
+      monthly: 2900,
+      annual: 2320,
+      isPopular: false,
+      isCustom: false,
+      cta: 'Start Building',
+      features: [
+        { label: 'Custom responsive design', included: true },
+        { label: 'CMS / content management setup', included: true },
+        { label: 'Performance & Core Web Vitals optimization', included: true },
+        { label: 'API & backend integration', included: false },
+        { label: 'Monthly growth & CRO experiments', included: false },
+        { label: 'Dedicated engineer + priority support', included: false },
+      ],
+    },
+    {
+      id: 'growth-partner',
+      name: 'Growth Partner',
+      target: 'Scaling Products',
+      tagline: 'Our most popular plan for products ready to compound growth.',
+      monthly: 5800,
+      annual: 4640,
+      isPopular: true,
+      isCustom: false,
+      cta: 'Get Started',
+      features: [
+        { label: 'Custom responsive design', included: true },
+        { label: 'CMS / content management setup', included: true },
+        { label: 'Performance & Core Web Vitals optimization', included: true },
+        { label: 'API & backend integration', included: true },
+        { label: 'Monthly growth & CRO experiments', included: true },
+        { label: 'Dedicated engineer + priority support', included: false },
+      ],
+    },
+    {
+      id: 'enterprise-architecture',
+      name: 'Enterprise Architecture',
+      target: 'High-volume Systems',
+      tagline: 'Dedicated infrastructure and support for high-volume systems.',
+      monthly: 11500,
+      annual: 9200,
+      isPopular: false,
+      isCustom: true,
+      cta: 'Talk to Sales',
+      features: [
+        { label: 'Custom responsive design', included: true },
+        { label: 'CMS / content management setup', included: true },
+        { label: 'Performance & Core Web Vitals optimization', included: true },
+        { label: 'API & backend integration', included: true },
+        { label: 'Monthly growth & CRO experiments', included: true },
+        { label: 'Dedicated engineer + priority support', included: true },
+      ],
+    },
+  ],
+}
 
 export const contactInfo = {
   heading: "Tell us what's not working.",
