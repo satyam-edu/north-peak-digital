@@ -1,17 +1,26 @@
+export const company = {
+  name: 'North Peak Digital',
+}
+
 export const navLinks = [
-  { label: 'Services', href: '#services' },
-  { label: 'Results', href: '#results' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'Contact', href: '#contact' },
+  { id: 'services', label: 'Services', href: '#services' },
+  { id: 'results', label: 'Results', href: '#results' },
+  { id: 'pricing', label: 'Pricing', href: '#pricing' },
+  { id: 'contact', label: 'Contact', href: '#contact' },
 ]
 
 export const hero = {
-  eyebrow: 'Digital product studio',
-  headline: 'Websites that pull their weight.',
+  badge: '⚡ Leading Digital Product Agency',
+  headline: 'Engineering High-Performance Digital Experiences',
   subheadline:
-    'North Peak Digital designs and builds fast, conversion-focused websites for brands that have outgrown their template.',
-  ctaPrimary: { label: 'Start a project', href: '#contact' },
-  ctaSecondary: { label: 'See our work', href: '#results' },
+    'North Peak Digital designs and engineers fast, conversion-focused websites and web apps for ambitious brands — built to hold up under real traffic, not just in a demo.',
+  ctaPrimary: { label: 'Explore Our Services', href: '#services' },
+  ctaSecondary: { label: 'Book a Call', href: '#contact' },
+  stats: [
+    { value: '150+', label: 'Projects Shipped' },
+    { value: '3.2x', label: 'Avg. Conversion Boost' },
+    { value: '99.9%', label: 'Uptime' },
+  ],
 }
 
 export const services = [

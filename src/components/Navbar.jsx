@@ -1,22 +1,58 @@
 import { useState } from 'react'
 import { Menu, X, Mountain } from 'lucide-react'
-import { navLinks } from '../data/agencyData'
+import { company, navLinks } from '../data/agencyData'
+
+const focusRing =
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900'
+
+function scrollToSection(id) {
+  const target = document.getElementById(id)
+  if (!target) return
+
+  const header = document.querySelector('header')
+  const offset = header ? header.offsetHeight : 0
+  const top = target.getBoundingClientRect().top + window.scrollY - offset
+
+  window.scrollTo({ top, behavior: 'smooth' })
+}
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
+  const handleLinkClick = (event, id) => {
+    event.preventDefault()
+    scrollToSection(id)
+    setIsOpen(false)
+  }
+
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#" className="flex items-center gap-2 font-semibold text-ink">
-          <Mountain size={22} className="text-accent" strokeWidth={2.25} />
-          North Peak Digital
+    <header className="sticky top-0 z-50 border-b border-slate-800 bg-slate-900/80 backdrop-blur-md">
+      <nav
+        aria-label="Primary"
+        className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4"
+      >
+        <a
+          href="#"
+          onClick={(event) => {
+            event.preventDefault()
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+            setIsOpen(false)
+          }}
+          aria-label={`${company.name} — back to top`}
+          className={`flex items-center gap-2 rounded font-semibold text-white ${focusRing}`}
+        >
+          <Mountain size={22} className="text-blue-400" strokeWidth={2.25} aria-hidden="true" />
+          {company.name}
         </a>
 
-        <ul className="hidden items-center gap-8 text-sm font-medium text-slate-600 md:flex">
+        <ul className="hidden items-center gap-8 text-sm font-medium text-slate-300 md:flex">
           {navLinks.map((link) => (
-            <li key={link.href}>
-              <a href={link.href} className="transition-colors hover:text-ink">
+            <li key={link.id}>
+              <a
+                href={link.href}
+                onClick={(event) => handleLinkClick(event, link.id)}
+                className={`rounded transition-colors hover:text-white ${focusRing}`}
+              >
                 {link.label}
               </a>
             </li>
@@ -25,30 +61,35 @@ function Navbar() {
 
         <a
           href="#contact"
-          className="hidden rounded-full bg-ink px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-accent md:inline-block"
+          onClick={(event) => handleLinkClick(event, 'contact')}
+          className={`hidden rounded-full bg-white px-5 py-2 text-sm font-medium text-slate-900 transition-colors hover:bg-slate-100 md:inline-block ${focusRing}`}
         >
-          Start a project
+          Get Started
         </a>
 
         <button
           type="button"
           onClick={() => setIsOpen((open) => !open)}
-          className="text-ink md:hidden"
-          aria-label="Toggle navigation menu"
+          className={`rounded text-white md:hidden ${focusRing}`}
+          aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
           aria-expanded={isOpen}
+          aria-controls="mobile-nav"
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
         </button>
       </nav>
 
       {isOpen && (
-        <ul className="flex flex-col gap-1 border-t border-slate-200 bg-white px-6 py-4 text-sm font-medium text-slate-600 md:hidden">
+        <ul
+          id="mobile-nav"
+          className="flex flex-col gap-1 border-t border-slate-800 bg-slate-900 px-6 py-4 text-sm font-medium text-slate-300 md:hidden"
+        >
           {navLinks.map((link) => (
-            <li key={link.href}>
+            <li key={link.id}>
               <a
                 href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="block py-2 hover:text-ink"
+                onClick={(event) => handleLinkClick(event, link.id)}
+                className={`block rounded py-2 hover:text-white ${focusRing}`}
               >
                 {link.label}
               </a>
@@ -57,10 +98,10 @@ function Navbar() {
           <li>
             <a
               href="#contact"
-              onClick={() => setIsOpen(false)}
-              className="mt-2 block rounded-full bg-ink px-5 py-2 text-center text-white"
+              onClick={(event) => handleLinkClick(event, 'contact')}
+              className={`mt-2 block rounded-full bg-white px-5 py-2 text-center text-slate-900 ${focusRing}`}
             >
-              Start a project
+              Get Started
             </a>
           </li>
         </ul>
