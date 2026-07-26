@@ -23,69 +23,131 @@ export const hero = {
   ],
 }
 
+export const servicesIntro = {
+  badge: 'What We Build',
+  headline: 'End-to-End Digital Engineering',
+  supporting:
+    'From the first wireframe to the backend that keeps up under load, every layer is built in-house.',
+}
+
 export const services = [
   {
-    icon: 'LayoutTemplate',
-    title: 'Web Design',
+    id: 'web-apps',
+    icon: 'AppWindow',
+    color: 'blue',
+    title: 'Custom Web Application Development',
     description:
-      'Custom interfaces built around how your customers actually browse and buy, not a recycled theme.',
+      'Fast, scalable web applications built on modern frameworks with architecture that stays maintainable as you grow.',
+    features: [
+      'React & Next.js builds',
+      'Scalable component architecture',
+      'Cross-browser QA testing',
+    ],
   },
   {
-    icon: 'Code2',
-    title: 'Development',
+    id: 'ui-ux',
+    icon: 'PenTool',
+    color: 'violet',
+    title: 'UI/UX Interface & Product Design',
     description:
-      'Hand-written, semantic front-end code that stays fast and maintainable long after launch.',
+      'Interfaces designed around how people actually use your product — validated with research, not just taste.',
+    features: [
+      'User research & wireframing',
+      'High-fidelity Figma prototypes',
+      'Design systems & component libraries',
+    ],
   },
   {
-    icon: 'ShoppingCart',
-    title: 'E-commerce',
-    description:
-      'Shopify and headless storefronts tuned for checkout speed and cart conversion.',
-  },
-  {
+    id: 'performance',
     icon: 'Gauge',
-    title: 'Performance',
+    color: 'emerald',
+    title: 'Performance & Speed Optimization',
     description:
-      'Lighthouse-driven optimization: image pipelines, lazy loading, and script discipline.',
+      'Every millisecond counts. We tune load times and Core Web Vitals until they hold up under real traffic.',
+    features: [
+      'Core Web Vitals tuning',
+      'Image & asset pipeline optimization',
+      'Lighthouse audits & fixes',
+    ],
   },
   {
-    icon: 'Search',
-    title: 'SEO Foundations',
+    id: 'backend',
+    icon: 'Server',
+    color: 'amber',
+    title: 'API & Backend Systems Architecture',
     description:
-      'Technical SEO baked in from the first commit, not bolted on after launch.',
+      'Robust APIs and backend systems designed to scale with your product instead of holding it back.',
+    features: [
+      'RESTful & GraphQL API design',
+      'Database schema architecture',
+      'Authentication & authorization',
+    ],
   },
   {
-    icon: 'LineChart',
-    title: 'Growth & CRO',
+    id: 'ecommerce',
+    icon: 'ShoppingCart',
+    color: 'cyan',
+    title: 'E-Commerce Platforms & Shopify',
     description:
-      'Ongoing experiments on layout, copy, and flow to move the metrics that matter.',
+      'Custom Shopify builds and headless storefronts tuned for checkout speed and cart conversion.',
+    features: [
+      'Custom Shopify theme development',
+      'Checkout & cart optimization',
+      'Payment gateway integrations',
+    ],
+  },
+  {
+    id: 'seo-growth',
+    icon: 'TrendingUp',
+    color: 'rose',
+    title: 'Technical SEO & Growth Engineering',
+    description:
+      'Technical SEO foundations and growth experiments that compound instead of resetting every quarter.',
+    features: [
+      'On-page & technical SEO audits',
+      'Structured data & schema markup',
+      'Conversion rate experimentation',
+    ],
   },
 ]
 
+export const resultsIntro = {
+  badge: 'Proven Impact',
+  headline: 'Real Results for Growing Brands',
+  supporting:
+    'Three teams who came to us with a slow, underperforming site — and left with a growth channel.',
+}
+
 export const results = [
   {
-    quote:
-      "North Peak rebuilt our storefront in three weeks and our mobile conversion rate hasn't dropped below the new baseline since.",
+    id: 'solace-skincare',
+    metric: '+240% Revenue Growth',
     name: 'Priya Nair',
     role: 'Founder',
     company: 'Solace Skincare',
-    metric: '+38% mobile conversion',
+    rating: 5,
+    quote:
+      "North Peak rebuilt our storefront in three weeks and our mobile conversion rate hasn't dropped below the new baseline since.",
   },
   {
-    quote:
-      'They asked harder questions about our funnel than our last two agencies combined, then shipped something that actually answered them.',
+    id: 'fieldnote',
+    metric: '3.5x Faster Load Times',
     name: 'Daniel Reyes',
     role: 'Head of Growth',
     company: 'Fieldnote',
-    metric: '2.1x demo requests',
+    rating: 5,
+    quote:
+      'They asked harder questions about our funnel than our last two agencies combined, then shipped something that actually answered them.',
   },
   {
-    quote:
-      'Our old site took nine seconds to load on 4G. The rebuild loads in under two, and support tickets about "the site being broken" basically disappeared.',
+    id: 'harborline',
+    metric: '+180% Qualified Leads',
     name: 'Amaka Obi',
     role: 'Operations Lead',
     company: 'Harborline Logistics',
-    metric: '78% faster load time',
+    rating: 5,
+    quote:
+      'Our old site took nine seconds to load on 4G. The rebuild loads in under two, and support tickets about "the site being broken" basically disappeared.',
   },
 ]
 
