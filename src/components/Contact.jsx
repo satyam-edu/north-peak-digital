@@ -1,17 +1,22 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
-import { Send, Loader2, CheckCircle2 } from 'lucide-react'
+import { Mail, Send, Loader2, CheckCircle2 } from 'lucide-react'
 import { contactInfo } from '../data/agencyData'
 
 const focusRing =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950'
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white'
 
 const inputClasses =
-  'mt-2 w-full rounded-lg border border-slate-700 bg-slate-800/80 px-4 py-2.5 text-sm text-white placeholder-slate-400 outline-none transition-colors focus:border-blue-500 focus:ring-1 focus:ring-blue-500'
+  'mt-2 w-full rounded-xl border border-ink/15 bg-white p-3.5 text-sm text-ink placeholder-ink/30 outline-none transition-colors focus:border-accent'
 
 const fadeUpVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+  hidden: { opacity: 0, y: 20, rotateX: 6 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    transition: { duration: 0.6, ease: 'easeOut' },
+  },
 }
 
 const initialForm = { name: '', email: '', budget: '', message: '' }
@@ -73,27 +78,39 @@ function Contact() {
   }
 
   return (
-    <section id="contact" className="bg-slate-950 px-6 py-24">
-      <div className="mx-auto max-w-3xl">
+    <section id="contact" className="relative z-10 bg-paper py-16 md:py-24">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
           variants={fadeUpVariants}
+          style={{ transformPerspective: 800 }}
           className="text-center"
         >
-          <h2 className="bg-gradient-to-r from-white via-blue-100 to-blue-400 bg-clip-text font-display text-3xl font-semibold tracking-tight text-transparent md:text-4xl">
+          <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-accent">
+            <span aria-hidden="true">04</span>
+            Contact
+          </span>
+          <h2 className="mt-6 font-display text-3xl text-ink md:text-4xl">
             {contactInfo.heading}
           </h2>
-          <p className="mt-4 text-slate-300">{contactInfo.subheading}</p>
+          <p className="mt-4 text-muted">{contactInfo.subheading}</p>
+          <a
+            href={`mailto:${contactInfo.email}`}
+            className={`mt-4 inline-flex items-center gap-2 rounded-full border border-ink/15 bg-white px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-ink ${focusRing}`}
+          >
+            <Mail size={16} aria-hidden="true" />
+            {contactInfo.email}
+          </a>
         </motion.div>
 
         {submitted && (
           <div
             role="status"
-            className="mt-8 flex items-center gap-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-5 py-4 text-sm text-emerald-300"
+            className="mt-8 flex items-center gap-3 rounded-xl bg-emerald-50 px-5 py-4 text-sm font-medium text-emerald-700"
           >
-            <CheckCircle2 size={20} className="shrink-0 text-emerald-400" aria-hidden="true" />
+            <CheckCircle2 size={20} className="shrink-0 text-emerald-600" aria-hidden="true" />
             Thank you! We've received your request and will respond within 24 hours.
           </div>
         )}
@@ -103,13 +120,14 @@ function Contact() {
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
           variants={fadeUpVariants}
+          style={{ transformPerspective: 800 }}
           onSubmit={handleSubmit}
           noValidate
-          className="mt-10 space-y-6"
+          className="mt-10 space-y-6 rounded-2xl border border-ink/10 bg-white p-8"
         >
           <div className="grid gap-6 sm:grid-cols-2">
             <div>
-              <label htmlFor="name" className="text-sm font-medium text-slate-200">
+              <label htmlFor="name" className="text-sm font-medium text-ink">
                 Name
               </label>
               <input
@@ -122,14 +140,14 @@ function Contact() {
                 className={inputClasses}
               />
               {errors.name && (
-                <p id="name-error" className="mt-1 text-sm text-rose-400">
+                <p id="name-error" className="mt-1 text-sm font-medium text-red-600">
                   {errors.name}
                 </p>
               )}
             </div>
 
             <div>
-              <label htmlFor="email" className="text-sm font-medium text-slate-200">
+              <label htmlFor="email" className="text-sm font-medium text-ink">
                 Email
               </label>
               <input
@@ -142,7 +160,7 @@ function Contact() {
                 className={inputClasses}
               />
               {errors.email && (
-                <p id="email-error" className="mt-1 text-sm text-rose-400">
+                <p id="email-error" className="mt-1 text-sm font-medium text-red-600">
                   {errors.email}
                 </p>
               )}
@@ -150,7 +168,7 @@ function Contact() {
           </div>
 
           <div>
-            <label htmlFor="budget" className="text-sm font-medium text-slate-200">
+            <label htmlFor="budget" className="text-sm font-medium text-ink">
               Budget range
             </label>
             <select
@@ -169,14 +187,14 @@ function Contact() {
               ))}
             </select>
             {errors.budget && (
-              <p id="budget-error" className="mt-1 text-sm text-rose-400">
+              <p id="budget-error" className="mt-1 text-sm font-medium text-red-600">
                 {errors.budget}
               </p>
             )}
           </div>
 
           <div>
-            <label htmlFor="message" className="text-sm font-medium text-slate-200">
+            <label htmlFor="message" className="text-sm font-medium text-ink">
               Project details
             </label>
             <textarea
@@ -189,18 +207,16 @@ function Contact() {
               className={inputClasses}
             />
             {errors.message && (
-              <p id="message-error" className="mt-1 text-sm text-rose-400">
+              <p id="message-error" className="mt-1 text-sm font-medium text-red-600">
                 {errors.message}
               </p>
             )}
           </div>
 
-          <motion.button
+          <button
             type="submit"
             disabled={status !== 'idle'}
-            whileHover={status === 'idle' ? { scale: 1.03 } : undefined}
-            whileTap={status === 'idle' ? { scale: 0.98 } : undefined}
-            className={`inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-slate-900 transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-80 ${focusRing}`}
+            className={`inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60 ${focusRing}`}
           >
             <AnimatePresence mode="wait" initial={false}>
               {status === 'idle' && (
@@ -243,7 +259,7 @@ function Contact() {
                 </motion.span>
               )}
             </AnimatePresence>
-          </motion.button>
+          </button>
         </motion.form>
       </div>
     </section>

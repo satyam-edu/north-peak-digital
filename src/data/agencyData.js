@@ -10,7 +10,7 @@ export const navLinks = [
 ]
 
 export const hero = {
-  badge: '⚡ Leading Digital Product Agency',
+  badge: 'BUILT TO PERFORM',
   headline: 'Engineering High-Performance Digital Experiences',
   subheadline:
     'North Peak Digital designs and engineers fast, conversion-focused websites and web apps for ambitious brands — built to hold up under real traffic, not just in a demo.',
@@ -24,7 +24,7 @@ export const hero = {
 }
 
 export const servicesIntro = {
-  badge: 'What We Build',
+  badge: 'WHAT WE BUILD',
   headline: 'End-to-End Digital Engineering',
   supporting:
     'From the first wireframe to the backend that keeps up under load, every layer is built in-house.',
@@ -34,7 +34,7 @@ export const services = [
   {
     id: 'web-apps',
     icon: 'AppWindow',
-    color: 'blue',
+    color: 'yellow',
     title: 'Custom Web Application Development',
     description:
       'Fast, scalable web applications built on modern frameworks with architecture that stays maintainable as you grow.',
@@ -47,7 +47,7 @@ export const services = [
   {
     id: 'ui-ux',
     icon: 'PenTool',
-    color: 'violet',
+    color: 'blue',
     title: 'UI/UX Interface & Product Design',
     description:
       'Interfaces designed around how people actually use your product — validated with research, not just taste.',
@@ -60,7 +60,7 @@ export const services = [
   {
     id: 'performance',
     icon: 'Gauge',
-    color: 'emerald',
+    color: 'yellow',
     title: 'Performance & Speed Optimization',
     description:
       'Every millisecond counts. We tune load times and Core Web Vitals until they hold up under real traffic.',
@@ -73,7 +73,7 @@ export const services = [
   {
     id: 'backend',
     icon: 'Server',
-    color: 'amber',
+    color: 'blue',
     title: 'API & Backend Systems Architecture',
     description:
       'Robust APIs and backend systems designed to scale with your product instead of holding it back.',
@@ -86,7 +86,7 @@ export const services = [
   {
     id: 'ecommerce',
     icon: 'ShoppingCart',
-    color: 'cyan',
+    color: 'yellow',
     title: 'E-Commerce Platforms & Shopify',
     description:
       'Custom Shopify builds and headless storefronts tuned for checkout speed and cart conversion.',
@@ -99,7 +99,7 @@ export const services = [
   {
     id: 'seo-growth',
     icon: 'TrendingUp',
-    color: 'rose',
+    color: 'blue',
     title: 'Technical SEO & Growth Engineering',
     description:
       'Technical SEO foundations and growth experiments that compound instead of resetting every quarter.',
@@ -112,7 +112,7 @@ export const services = [
 ]
 
 export const resultsIntro = {
-  badge: 'Proven Impact',
+  badge: 'PROVEN IMPACT',
   headline: 'Real Results for Growing Brands',
   supporting:
     'Three teams who came to us with a slow, underperforming site — and left with a growth channel.',
@@ -153,7 +153,7 @@ export const results = [
 
 export const pricing = {
   intro: {
-    badge: 'Flexible Plans',
+    badge: 'FLEXIBLE PLANS',
     headline: 'Transparent Pricing Built for Scale',
     subtext:
       'Every plan includes a site you fully own — pick the level of ongoing engineering your growth stage needs.',

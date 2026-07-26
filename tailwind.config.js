@@ -4,12 +4,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#0b1120',
-        accent: '#2563eb',
+        ink: '#141414',
+        paper: '#F9F8F6',
+        muted: '#656565',
+        accent: '#2145B7',
       },
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-        display: ['"Outfit"', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'],
+        display: ['Fraunces', 'serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
       },
     },
   },

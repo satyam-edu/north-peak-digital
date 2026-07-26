@@ -6,21 +6,19 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  margin: 0;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  color: #0b1120;
-  background-color: #ffffff;
+html.lenis {
+  height: auto;
 }
 
-@layer utilities {
-  .bg-glow-radial {
-    background-image: radial-gradient(
-      circle at 50% 0%,
-      rgba(59, 130, 246, 0.12) 0%,
-      transparent 70%
-    );
-  }
+html.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  color: #141414;
+  background-color: #f9f8f6;
 }
 
 @media (prefers-reduced-motion: reduce) {
