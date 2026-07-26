@@ -100,8 +100,15 @@ function ServiceCard({ service, index }) {
 
 function Services() {
   return (
-    <section id="services" className="relative z-10 bg-white py-16 md:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <motion.section
+      id="services"
+      initial={{ opacity: 0, y: 80, scale: 0.96 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: false, margin: '-100px' }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+    >
+      <div className="mb-12 rounded-[32px] border border-ink/10 bg-white p-8 shadow-xl md:p-12">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -132,7 +139,7 @@ function Services() {
           ))}
         </motion.div>
       </div>
-    </section>
+    </motion.section>
   )
 }
 

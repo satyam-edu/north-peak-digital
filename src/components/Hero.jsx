@@ -1,13 +1,14 @@
-import { motion } from 'motion/react'
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { ArrowRight, ArrowUpRight, Activity } from 'lucide-react'
 import { hero } from '../data/agencyData'
 import { useScrollScrub3D } from '../hooks/useScrollScrub3D'
 import { scrollToSection } from '../utils/scroll'
 
+const WORD_INTERVAL_MS = 2400
+
 const focusRing =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper'
-
-const HIGHLIGHT_WORD = 'High-Performance'
 
 const containerVariants = {
   hidden: {},
@@ -29,16 +30,39 @@ const floatingPills = [
   { label: 'Tailwind CSS', className: '-right-3 top-1/2', duration: 5, delay: 0.5, offset: 6 },
 ]
 
-function renderHighlightedHeadline(text) {
-  const index = text.indexOf(HIGHLIGHT_WORD)
-  if (index === -1) return text
+function RotatingWord({ words }) {
+  const [index, setIndex] = useState(0)
+  const prefersReducedMotion = useReducedMotion()
+
+  useEffect(() => {
+    if (prefersReducedMotion) return undefined
+
+    const interval = setInterval(() => {
+      setIndex((current) => (current + 1) % words.length)
+    }, WORD_INTERVAL_MS)
+
+    return () => clearInterval(interval)
+  }, [words.length, prefersReducedMotion])
+
+  const currentWord = words[prefersReducedMotion ? 0 : index]
 
   return (
-    <>
-      {text.slice(0, index)}
-      <span className="italic text-accent">{HIGHLIGHT_WORD}</span>
-      {text.slice(index + HIGHLIGHT_WORD.length)}
-    </>
+    <span className="relative inline-block">
+      <span className="sr-only">{words.join(', ')}</span>
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={currentWord}
+          initial={{ y: 16, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -16, opacity: 0 }}
+          transition={{ duration: 0.4, ease: 'easeOut' }}
+          aria-hidden="true"
+          className="inline-block italic text-accent"
+        >
+          {currentWord}
+        </motion.span>
+      </AnimatePresence>
+    </span>
   )
 }
 
@@ -94,12 +118,10 @@ function ProductEnginePreview() {
 }
 
 function Hero() {
-  const pin = useScrollScrub3D({
+  const heroFade = useScrollScrub3D({
     offset: ['start start', 'end start'],
-    rotateRange: [0, -3],
-    yRange: [0, -50],
-    scaleRange: [1, 0.95],
-    opacityRange: [1, 0.65],
+    scaleRange: [1, 0.94],
+    opacityRange: [1, 0.7],
   })
 
   const shapeA = useScrollScrub3D({
@@ -114,9 +136,9 @@ function Hero() {
 
   return (
     <section
-      ref={pin.ref}
+      ref={heroFade.ref}
       aria-labelledby="hero-heading"
-      className="relative z-10 overflow-hidden bg-paper md:min-h-[130vh]"
+      className="relative z-10 overflow-hidden bg-paper md:min-h-[135vh]"
     >
       <div
         ref={shapeA.ref}
@@ -131,7 +153,10 @@ function Hero() {
         className="absolute right-[8%] top-[58%] hidden h-36 w-36 rounded-full border border-accent/20 md:block"
       />
 
-      <div className="relative px-4 pb-16 pt-24 sm:px-6 md:sticky md:top-20 md:pb-24 md:pt-0 lg:px-8">
+      <motion.div
+        style={heroFade.style}
+        className="relative px-4 pb-16 pt-24 sm:px-6 md:sticky md:top-0 md:flex md:min-h-screen md:items-center md:pb-24 md:pt-20 lg:px-8"
+      >
         <div className="mx-auto grid max-w-7xl items-center gap-12 md:grid-cols-2">
           <motion.div
             initial="hidden"
@@ -155,7 +180,7 @@ function Hero() {
               style={{ transformPerspective: 800 }}
               className="mt-6 font-display text-4xl leading-[1.1] tracking-tight text-ink md:text-6xl"
             >
-              {renderHighlightedHeadline(hero.headline)}
+              {hero.headlinePrefix} <RotatingWord words={hero.rotatingWords} />
             </motion.h1>
 
             <motion.p
@@ -214,12 +239,10 @@ function Hero() {
           </motion.div>
 
           <div className="hidden md:block">
-            <motion.div style={pin.style}>
-              <ProductEnginePreview />
-            </motion.div>
+            <ProductEnginePreview />
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

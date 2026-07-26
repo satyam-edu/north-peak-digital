@@ -11,17 +11,26 @@ export const navLinks = [
 
 export const hero = {
   badge: 'BUILT TO PERFORM',
-  headline: 'Engineering High-Performance Digital Experiences',
+  headlinePrefix: 'One Digital Studio to Build Your Next',
+  rotatingWords: ['Web Platform', 'High-Performance App', 'Scale Enterprise'],
   subheadline:
-    'North Peak Digital designs and engineers fast, conversion-focused websites and web apps for ambitious brands — built to hold up under real traffic, not just in a demo.',
-  ctaPrimary: { label: 'Explore Our Services', href: '#services' },
-  ctaSecondary: { label: 'Book a Call', href: '#contact' },
+    'North Peak Digital designs and engineers fast, conversion focused websites and web apps for ambitious brands, built to hold up under real traffic, not just in a demo.',
+  ctaPrimary: { label: 'Explore Capabilities', href: '#services' },
+  ctaSecondary: { label: 'Book a Strategy Call', href: '#contact' },
   stats: [
     { value: '150+', label: 'Projects Shipped' },
     { value: '3.2x', label: 'Avg. Conversion Boost' },
     { value: '99.9%', label: 'Uptime' },
   ],
 }
+
+export const trustedBy = [
+  'Solace Skincare',
+  'Fieldnote',
+  'Harborline Logistics',
+  'Podha',
+  'TechCorp',
+]
 
 export const servicesIntro = {
   badge: 'WHAT WE BUILD',
@@ -115,7 +124,7 @@ export const resultsIntro = {
   badge: 'PROVEN IMPACT',
   headline: 'Real Results for Growing Brands',
   supporting:
-    'Three teams who came to us with a slow, underperforming site — and left with a growth channel.',
+    'Three teams who came to us with a slow, underperforming site and left with a growth channel.',
 }
 
 export const results = [
@@ -156,7 +165,7 @@ export const pricing = {
     badge: 'FLEXIBLE PLANS',
     headline: 'Transparent Pricing Built for Scale',
     subtext:
-      'Every plan includes a site you fully own — pick the level of ongoing engineering your growth stage needs.',
+      'Every plan includes a site you fully own pick the level of ongoing engineering your growth stage needs.',
   },
   tiers: [
     {
