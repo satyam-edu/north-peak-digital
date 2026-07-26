@@ -77,8 +77,8 @@ function Pricing() {
               key={tier.id}
               className={`relative flex h-full flex-col rounded-2xl border p-8 ${
                 tier.isPopular
-                  ? 'border-blue-500 bg-slate-800/80 shadow-lg shadow-blue-500/10'
-                  : 'border-slate-700/60 bg-slate-800/40'
+                  ? 'border-blue-500 bg-slate-800/90 text-white shadow-xl shadow-blue-500/10'
+                  : 'border-slate-700/60 bg-slate-800/40 text-slate-200'
               }`}
             >
               {tier.isPopular && (
