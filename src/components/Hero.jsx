@@ -45,9 +45,16 @@ function RotatingWord({ words }) {
   }, [words.length, prefersReducedMotion])
 
   const currentWord = words[prefersReducedMotion ? 0 : index]
+  const longestWord = words.reduce((a, b) => (a.length > b.length ? a : b))
 
   return (
-    <span className="relative inline-block">
+    // inline-grid stacks the spacer + both the exiting/entering AnimatePresence
+    // children in the same cell (col/row-start-1), so the crossfade overlaps
+    // in place instead of the old and new word both sitting inline at once.
+    <span className="relative inline-grid align-bottom">
+      <span aria-hidden="true" className="invisible col-start-1 row-start-1 italic">
+        {longestWord}
+      </span>
       <span className="sr-only">{words.join(', ')}</span>
       <AnimatePresence mode="wait">
         <motion.span
@@ -57,7 +64,7 @@ function RotatingWord({ words }) {
           exit={{ y: -16, opacity: 0 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
           aria-hidden="true"
-          className="inline-block italic text-accent"
+          className="col-start-1 row-start-1 whitespace-nowrap italic text-accent"
         >
           {currentWord}
         </motion.span>
@@ -69,7 +76,7 @@ function RotatingWord({ words }) {
 function ProductEnginePreview() {
   return (
     <div
-      className="rounded-2xl border border-ink/10 bg-white p-6 shadow-[0_20px_60px_-25px_rgba(20,20,20,0.25)]"
+      className="relative rounded-2xl border border-ink/10 bg-white p-6 shadow-[0_20px_60px_-25px_rgba(20,20,20,0.25)]"
       aria-hidden="true"
     >
       <div className="flex items-center justify-between">
@@ -108,7 +115,7 @@ function ProductEnginePreview() {
           key={pill.label}
           animate={{ y: [0, pill.offset, 0] }}
           transition={{ duration: pill.duration, delay: pill.delay, repeat: Infinity, ease: 'easeInOut' }}
-          className={`absolute rounded-full border border-ink/10 bg-white px-3 py-1.5 text-xs font-medium text-ink shadow-sm ${pill.className}`}
+          className={`absolute hidden rounded-full border border-ink/10 bg-white px-3 py-1.5 text-xs font-medium text-ink shadow-sm sm:flex sm:items-center ${pill.className}`}
         >
           {pill.label}
         </motion.span>
@@ -118,12 +125,6 @@ function ProductEnginePreview() {
 }
 
 function Hero() {
-  const heroFade = useScrollScrub3D({
-    offset: ['start start', 'end start'],
-    scaleRange: [1, 0.94],
-    opacityRange: [1, 0.7],
-  })
-
   const shapeA = useScrollScrub3D({
     offset: ['start end', 'end start'],
     yRange: [30, -30],
@@ -136,9 +137,8 @@ function Hero() {
 
   return (
     <section
-      ref={heroFade.ref}
       aria-labelledby="hero-heading"
-      className="relative z-10 overflow-hidden bg-paper md:min-h-[135vh]"
+      className="relative w-full overflow-hidden bg-paper"
     >
       <div
         ref={shapeA.ref}
@@ -153,17 +153,14 @@ function Hero() {
         className="absolute right-[8%] top-[58%] hidden h-36 w-36 rounded-full border border-accent/20 md:block"
       />
 
-      <motion.div
-        style={heroFade.style}
-        className="relative px-4 pb-16 pt-24 sm:px-6 md:sticky md:top-0 md:flex md:min-h-screen md:items-center md:pb-24 md:pt-20 lg:px-8"
-      >
-        <div className="mx-auto grid max-w-7xl items-center gap-12 md:grid-cols-2">
+      <div className="relative mx-auto min-h-fit max-w-7xl px-4 py-12 sm:px-6 md:py-20 lg:px-8 lg:py-24">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:items-center lg:gap-12">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-100px' }}
             variants={containerVariants}
-            className="text-center md:text-left"
+            className="text-center md:col-span-7 md:text-left"
           >
             <motion.span
               variants={itemVariants}
@@ -225,10 +222,10 @@ function Hero() {
             <motion.dl
               variants={itemVariants}
               style={{ transformPerspective: 800 }}
-              className="mx-auto mt-16 grid max-w-2xl grid-cols-1 divide-y divide-ink/10 sm:grid-cols-3 sm:divide-x sm:divide-y-0 md:mx-0"
+              className="mx-auto mt-12 grid max-w-2xl grid-cols-3 gap-4 text-center lg:mt-16 md:mx-0 md:text-left"
             >
               {hero.stats.map((stat) => (
-                <div key={stat.label} className="px-0 py-3 first:pt-0 sm:px-6 sm:py-0 sm:first:pl-0">
+                <div key={stat.label}>
                   <dd className="font-display text-2xl text-ink sm:text-3xl">{stat.value}</dd>
                   <dt className="mt-1 font-mono text-xs uppercase tracking-wider text-muted">
                     {stat.label}
@@ -238,11 +235,11 @@ function Hero() {
             </motion.dl>
           </motion.div>
 
-          <div className="hidden md:block">
+          <div className="md:col-span-5">
             <ProductEnginePreview />
           </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   )
 }
