@@ -1,16 +1,51 @@
-# React + Vite
+# North Peak Digital
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A marketing site for **North Peak Digital**, a fictional web design & development studio, built as the Web Development submission for the Digital Heroes internship task.
 
-Currently, two official plugins are available:
+## Tech stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** + **Vite** — component architecture and dev/build tooling
+- **Tailwind CSS** — utility-first styling
+- **Motion** (`motion/react`) — scroll-linked reveals, entrance animations, and micro-interactions
+- **Lenis** — smooth/inertia scrolling
+- **Lucide React** — icon set
+- **Oxlint** — linting
 
-## React Compiler
+## Getting started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+npm run dev
+```
 
-## Expanding the Oxlint configuration
+The dev server prints a local URL (defaults to `http://localhost:5173`).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+### Other scripts
+
+```bash
+npm run build    # production build to dist/
+npm run preview  # preview the production build locally
+npm run lint     # run oxlint against src/
+```
+
+## Project structure
+
+```
+src/
+  components/   # Navbar, Hero, TrustedBy, Services, Results, Pricing, Contact, Footer
+  data/          # agencyData.js — all site copy and content, in one place
+  hooks/         # useLenis, use3DTilt, useScrollScrub3D
+  utils/         # scroll.js — Lenis-aware scroll-to-section helper
+```
+
+## Features
+
+- Responsive hero with a rotating headline word, scroll-linked parallax accents, and a live "trusted by" logo marquee
+- Services grid (6 offerings), results/testimonials section, and a 3-tier pricing table with a monthly/annual billing toggle
+- Contact form with client-side validation (name, email, budget, message) and a submit state machine (idle → submitting → success)
+- Scroll-entrance animations throughout, all respecting `prefers-reduced-motion`
+- Footer credit line linking back to the Digital Heroes training task, as required by the assignment brief
+
+## Notes
+
+All content in `src/data/agencyData.js` (company name, services, testimonials, pricing, contact details) is placeholder copy written for this assignment — North Peak Digital is not a real company.
